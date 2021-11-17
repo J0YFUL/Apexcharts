@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+    <script>
+        let options = {
+            series: [3, 5, 7, 2, 3],
+            labels: [`EMRG`, 'PROT', 'ACC', 'DIST', 'FIRE'],
+            chart: {
+                // background: '#fff',
+                width: 300,
+                height: 250,
+                type: 'donut',
+                offsetX: 30,
+                offsetY: 15,
+            },
+            dataLabels: {
+                enabled: true,
+                formatter: function (val) {
+                    return Math.floor(val) + '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    customScale: 1,
+                    // size: 300, // 이거 적용 안되는듯 (실제로 deprecated)
+                    donut: { // 도넛 구멍 크기가 달라짐
+                        size: '60%',
+                        labels: {
+                            show: true,
+                            name: { // 도넛 요소들의 라벨 이름 설정, 설정하면 도넛에 마우스 대면 라벨에 해당 값들이 뜬다.
+                                show: true,
+                                fontSize: '18px',
+                                offsetY: -10,
+                                formatter: function (val) {
+                                    return val
+                                }
+                            },
+                            value: {
+                                show: true,
+                                fontSize: '20px',
+                                fontWeight: 400,
+                                color: 'rgba(255,0,0,1)',
+                                offsetY: -5,
+                                formatter: function (val) {
+                                    return val
+                                }
+                            }
+                        },
+                    }
+                }
+            },
+            legend: {
+                show: true,
+                showForZeroSeries: true,
+                position: 'right',
+                fontSize: '12px',
+                offsetX: 0,
+                offsetY: -20,
+                // horizontalAlign: 'center',
+                onItemClick: {
+                    toggleDataSeries: true,
+                },
+                // 레전드 옵션에 글자 형식 바꾸기 (중요)
+                formatter: function (seriesName, opts) {
+                    return [seriesName, "  : ", `<span style="color:yellow;">${opts.w.globals.series[opts.seriesIndex]}</span>`]
+                },
+                onItemHover: {
+                    highlightDataSeries: true,
+                },
+                labels: {
+                    colors: '#fff',
+                    // 차트 색깔과 깔맞춤하는 용도
+                    // useSeriesColors: true,
+                },
+                markers: { // legend의 동글뱅이들
+                    width: 6,
+                    height: 6,
+                }
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200,
+                    },
+                    legend: {
+                        show: true,
+                        position: 'right',
+                    }
+                }
+            }]
+        };
+        let chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+</body>
+
+</html>
