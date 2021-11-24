@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ChartEx</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+    <script>
+        let options = {
+            series: [250, 180, 210, 521, 185],
+            labels: ['Full-Size', 'Medium', 'Compact', 'Bikes', 'Trucks'],
+            chart: {
+                id: 'chart',
+                // background: '#fff',
+                width: 300,
+                height: 200,
+                type: 'donut',
+            },
+            legend: {
+                show: false,
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            title: {
+                text: 'Traffic',
+                align: 'center',
+                // margin: 10,
+                // offsetY: 50, // 오프셋 테스트용
+                // offsetX: 50,
+                floating: false, // true로 설정하면 차트랑 겹쳐지게 됨.
+                style: {
+                    fontSize: '30px',
+                    color: '#fff'
+                },
+            },
+            plotOptions: {
+                pie: {
+                    customScale: 1.1, // 전반적인 차트와 구성요소들의 비율 조절
+                    donut: { // 도넛 구멍 크기가 달라짐
+                        size: '80%', // 값이 클수록 도넛이 고리가 됨.
+                        labels: {
+                            show: true, // 기본은 false로 되어있는지 show:true를 따로 명시해주어야 보임
+                            name: { // 도넛 요소들의 라벨 이름 설정, 설정하면 도넛파트에 마우스 대면 라벨에 해당 값들이 뜬다.
+                                show: true,
+                                fontSize: '25px',
+                                offsetY: -10,
+                                formatter: function (val) {
+                                    return val;
+                                }
+                            },
+                            total: {
+                                show: true,
+                                // showAlways: true,
+                                label: 'Total',
+                                fontSize: '16px',
+                                fontWeight: 200,
+                                color: 'rgba(255,255,255,1)',
+                                formatter: function (w) {
+                                    return Math.floor(w.globals.seriesTotals.reduce((a, b) => {
+                                        return a + b
+                                    }, 0))
+                                }
+                            },
+                            value: {
+                                show: true,
+                                fontSize: '20px',
+                                fontWeight: 400,
+                                color: 'rgba(255,255,255,1)',
+                                offsetY: 0,
+                                formatter: function (val) {
+                                    return val;
+                                }
+                            }
+                        },
+                    }
+                }
+            },
+        };
+        const chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+</body>
+
+</html>

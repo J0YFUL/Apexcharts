@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ChartEx</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        body {
+            background-color:#333;
+        }
+
+        button {
+            background-color: blanchedalmond;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+    <button id="op_btn">UPDATEOPTIONS!</button>
+    <button id="sr_btn">UPDATESERIES!@</button>
+    <button id="rst">RESET!@#</button>
+    <script>
+        let options = {
+            chart: {
+                id: 'mychart',
+                type: 'area',
+                width: 400,
+                toolbar: false,
+                zoom: false,
+            },
+            series: [{
+                data: [2, 33, 14, 8]
+            }],
+        }
+
+        const chart = new ApexCharts(document.getElementById('chart'), options);
+        chart.render();
+
+        // 예시 1 - updateOptions() - Options(옵션) 변경하는 부분
+
+        let btn_op = document.getElementById('op_btn');
+        btn_op.addEventListener('click', () => {
+            ApexCharts.exec('mychart', 'updateOptions', {
+                xaxis: {
+                    labels: {
+                        show: false
+                    }
+                }
+            }, false, true);
+        });
+
+        // 예시 2 - updateSeries() - Series(차트 값) 변경하는 부분
+
+        let btn_sr = document.getElementById('sr_btn');
+        btn_sr.addEventListener('click', () => {
+            ApexCharts.exec('mychart', 'updateSeries', [{
+                data: [32, 44, 31, 41, 22],
+            }], true);
+        });
+
+        // 예시 3 - updateOptions() 2, 단순 옵션 해제하고 원래대로 돌리는 부분
+
+        let btn_reset = document.getElementById('rst');
+        btn_reset.addEventListener('click', () => {
+            ApexCharts.exec('mychart', 'updateOptions', {
+                series: [{
+                data: [2, 33, 14, 8]
+                }],
+                xaxis: {
+                    labels: {
+                        show: true
+                    }
+                }
+            }, false, true);
+        });
+    </script>
+</body>
+
+</html>
