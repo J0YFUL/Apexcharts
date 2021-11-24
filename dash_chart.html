@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ChartEx</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        body {
+            background-color: black; 
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+    <script>
+        let options = {
+            series: [50],
+            chart: {
+                width: 300,
+                height: 300,
+                type: 'radialBar',
+                offsetY: -30,
+                offsetX: 10,
+                animations: {
+                    speed: 2500,
+                }
+            },
+            colors: ["#20E647"],
+            plotOptions: {
+                radialBar: {
+                    startAngle: -90,
+                    endAngle: 90,
+                    track: {
+                        show: false,
+                    },
+                    // 차트 값 표시
+                    dataLabels: {
+                        value: {
+                            offsetY: -25,
+                            fontSize: '30px',
+                            color: '#fff',
+                            formatter: function (val) {
+                                return val + "%";
+                            }
+                        }
+                    }
+                }
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: "light",
+                    type: "horizontal",
+                    gradientToColors: ["#ff4f4f"],
+                    stops: [0, 50, 100]
+                },
+            },
+            stroke: {
+                dashArray: 5
+            },
+            // 라벨은 없는게 보기에 좋음
+            labels: [''],
+        };
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+</body>
+
+</html>

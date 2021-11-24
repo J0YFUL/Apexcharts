@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ChartEx</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+    <script>
+        var price_options = {
+            chart: {
+                width: 400,
+                height: 400,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                },
+                toolbar: {
+                    show: false,
+                }
+            },
+            series: [{
+                name: "large",
+                type: 'line',
+                data: [80, 85, 85, 80, 85, 86, 85, 85, 85, 87, 85, 80],
+            },
+            {
+                name: "medium",
+                type: 'line',
+                data: [86, 87, 86, 90, 91, 86, 85, 92, 85, 86, 88, 85]
+            },
+            {
+                name: 'motorcycle',
+                type: 'line',
+                data: [60, 67, 70, 62, 65, 62, 70, 67, 62, 68, 62, 60]
+            },
+            {
+                name: 'truck',
+                type: 'line',
+                data: [71, 78, 74, 76, 75, 77, 75, 75, 71, 70, 68, 76]
+            }
+            ],
+            dataLabels: {
+                enabled: false
+            },
+            fill: {
+                type: 'pattern',
+            },
+            legend: {
+                show: false,
+            },
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            stroke: { // 그래프선관련
+                width: [10, 15, 1, 5],
+                curve: 'straight',    // stepline, smooth, straight 중 하나로 적용 
+                dashArray: [5, 0, 8, 4] // 점선간격 각각의 series 단위
+            },
+            markers: {
+                size: 0, // 라인의 지점마다 있는 마커 사이즈 (지점이 많으면 분산이 심해서 0으로 설정)
+                hover: { // 갖다 댔을때 나오는 마커 사이즈 조절
+                    sizeOffset: 10
+                }
+            },
+            xaxis: { // x축 바닥에 명시하는 구간
+                categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
+                    '10 Jan', '11 Jan', '12 Jan'
+                ],
+                labels: { // 글자색 명시구간
+                    style: {
+                        colors: '#fff',
+                    }
+                }
+            },
+            yaxis: {
+                labels: {
+                    style: {
+                        colors: '#fff',
+                    }
+                }
+            },
+            tooltip: {
+                y: [
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    },
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    },
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    }
+                ]
+            },
+            title: {
+                text: 'Daily speed',
+                align: 'left',
+                margin: 10,
+                offsetX: 30,
+                offsetY: 30,
+                floating: false,
+                style: {
+                    fontSize: '16px',
+                    color: '#fff'
+                },
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), price_options);
+        chart.render();
+    </script>
+</body>
+
+</html>
